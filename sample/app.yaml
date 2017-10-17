@@ -1,0 +1,11 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /_ah/(mapreduce|queue|warmup).*
+  script: sample.wsgi.application
+  login: admin
+
+- url: /.*
+  script: sample.wsgi.application

@@ -1,0 +1,8 @@
+google-cloud-sdk
+google_appengine
+sample/libs
+.storage
+*pyc
+db.sqlite3
+deploy.sh
+setting.sh
