@@ -32,6 +32,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
     'djangae',
     'django.contrib.admin',
     'django.contrib.auth',
