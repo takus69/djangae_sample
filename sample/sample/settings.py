@@ -62,7 +62,7 @@ ROOT_URLCONF = 'sample.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,18 +83,25 @@ WSGI_APPLICATION = 'sample.wsgi.application'
 
 from djangae.environment import is_development_environment
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djangae.db.backends.appengine'
-    }
-}
-
 if is_development_environment():
-    DATABASES['sql'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.sqlite3',
+          'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+      }
     }
-        
+else:
+  DATABASES = {
+      'default': {
+          'ENGINE': 'djangae.db.backends.appengine'
+      }
+  }
+
+#DATABASES = {
+#    'default': {
+#    'ENGINE': 'djangae.db.backends.appengine'
+#  }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
