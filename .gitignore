@@ -5,4 +5,3 @@ sample/libs
 *pyc
 db.sqlite3
 deploy.sh
-setting.sh
