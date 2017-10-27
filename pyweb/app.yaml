@@ -5,14 +5,14 @@ threadsafe: true
 
 handlers:
 - url: /_ah/(mapreduce|queue|warmup).*
-  script: sample.wsgi.application
+  script: pyweb.wsgi.application
   login: admin
 
 - url: /admin.*
-  script: sample.wsgi.application
+  script: pyweb.wsgi.application
   secure: always
   login: admin
 
 - url: /.*
-  script: sample.wsgi.application
+  script: pyweb.wsgi.application
 

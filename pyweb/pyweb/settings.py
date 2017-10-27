@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
+from djangae.settings_base import *
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,18 +27,22 @@ SECRET_KEY = 'hdu2l2e$3b0o6n!#$k%*#dv1=5ijp4wpheazj*vrpx+mk)^^1f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'djangae',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'djangae.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangae.contrib.security',
+    'djangae.contrib.gauth_datastore',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -48,6 +54,9 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'djangae.contrib.security.middleware.AppEngineSecurityMiddleware',
+    'djangae.contrib.gauth.middleware.AuthenticationMiddleware',
+    'session_csrf.CsrfMiddleware',
 ]
 
 ROOT_URLCONF = 'pyweb.urls'
@@ -74,12 +83,12 @@ WSGI_APPLICATION = 'pyweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -119,3 +128,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Gauth
+AUTH_USER_MODEL = 'gauth_datastore.GaeDatastoreUser'
+LOGIN_URL = 'djangae_login_redirect'
+
+AUTHENTICATION_BACKENDS = (
+  'djangae.contrib.gauth_datastore.backends.AppEngineUserAPIBackend',
+)
