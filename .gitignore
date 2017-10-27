@@ -1,6 +1,7 @@
 google-cloud-sdk
 google_appengine
 sample/libs
+pyweb/lib
 .storage
 *pyc
 db.sqlite3
