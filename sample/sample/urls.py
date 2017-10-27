@@ -20,11 +20,18 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.contrib.staticfiles import views
 
+# Add for admin
+from django.contrib import admin
+admin.autodiscover()
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^_ah/', include('djangae.urls')),
+    # Modify for admin
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^hello/', include('hello.urls')),
     url(r'^polls/', include('polls.urls')),
+    # Add for admin
+    url(r'^auth/', include('djangae.contrib.gauth.urls')),
 ]
 
 # Apply only when DEBUG is True.

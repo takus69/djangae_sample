@@ -1,0 +1,5 @@
+polls_choice:
+  choice_text: [startswith]
+polls_question:
+  pub_date: [year__exact]
+  question_text: [startswith]

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-export PATH=$PATH:../google_appengine:../google-cloud-sdk/bin
-# export DJANGAE_APP_YAML_LOCATION=.
+export PATH=$PATH:../google-cloud-sdk/bin
 export PYTHONPATH=../google_appengine/:./libs
+cp -p app_dev.yaml app.yaml

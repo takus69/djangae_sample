@@ -41,19 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangae.contrib.gauth_datastore',
     'djangae.contrib.security',
 ]
 
 MIDDLEWARE_CLASSES = [
+    'djangae.contrib.security.middleware.AppEngineSecurityMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'djangae.contrib.gauth.middleware.AuthenticationMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'djangae.contrib.security.middleware.AppEngineSecurityMiddleware',
     'session_csrf.CsrfMiddleware',
 ]
 
@@ -81,27 +83,39 @@ WSGI_APPLICATION = 'sample.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-from djangae.environment import is_development_environment
+# from djangae.environment import is_development_environment
 
-if is_development_environment():
-  DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.sqlite3',
-          'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-      }
-    }
-else:
-  DATABASES = {
-      'default': {
-          'ENGINE': 'djangae.db.backends.appengine'
-      }
-  }
+# if is_development_environment():
+#   DATABASES = {
+#       'default': {
+#           'ENGINE': 'django.db.backends.sqlite3',
+#           'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#       }
+#     }
+# else:
+#   DATABASES = {
+#       'default': {
+#           'ENGINE': 'djangae.db.backends.appengine'
+#       }
+#   }
 
 #DATABASES = {
 #    'default': {
 #    'ENGINE': 'djangae.db.backends.appengine'
 #  }
 #}
+
+AUTH_USER_MODEL = 'gauth_datastore.GaeDatastoreUser'
+
+# Add for admin
+# AUTH_USER_MODEL = 'djangae.GaeDatastoreUser'
+LOGIN_URL = 'djangae_login_redirect'
+
+AUTHENTICATION_BACKENDS = (
+  'djangae.contrib.gauth_datastore.backends.AppEngineUserAPIBackend',
+  'django.contrib.auth.backends.ModelBackend',
+)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
